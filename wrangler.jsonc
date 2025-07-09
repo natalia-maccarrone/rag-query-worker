@@ -9,6 +9,15 @@
 	"compatibility_date": "2025-07-09",
 	"observability": {
 		"enabled": true
+	},
+	"services": [
+		{
+			"binding": "EMBEDDINGS_WORKER",
+			"service": "embeddings-worker"
+		}
+	],
+	"vars": {
+		"SUPABASE_URL": "https://ecaokswsfwozidzoubcv.supabase.co"
 	}
 	/**
 	 * Smart Placement

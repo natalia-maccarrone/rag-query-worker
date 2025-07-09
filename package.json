@@ -14,5 +14,9 @@
 		"typescript": "^5.5.2",
 		"vitest": "~3.2.0",
 		"wrangler": "^4.24.0"
+	},
+	"dependencies": {
+		"@huggingface/inference": "^4.4.0",
+		"@supabase/supabase-js": "^2.50.4"
 	}
 }
