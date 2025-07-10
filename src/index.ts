@@ -105,7 +105,8 @@ Answer:`;
 					answer: answerResponse.choices[0].message,
 					chunks_used: similarChunks.length,
 					similarity_scores: similarChunks.map((c) => c.similarity),
-				})
+				}),
+				{ headers: corsHeaders }
 			);
 		} catch (error: any) {
 			return new Response(JSON.stringify({ error: error.message }), {
