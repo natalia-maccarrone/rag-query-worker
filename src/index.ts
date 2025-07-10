@@ -25,6 +25,16 @@ export default {
 			return new Response(null, { headers: corsHeaders });
 		}
 
+		const origin = request.headers.get('origin');
+		const referer = request.headers.get('referer');
+		const allowedDomains = ['https://smart-query-v3hp.vercel.app/'];
+
+		const isAllowed = allowedDomains.some((domain) => origin?.startsWith(domain) || referer?.startsWith(domain));
+
+		if (!isAllowed) {
+			return new Response('Forbidden', { status: 403 });
+		}
+
 		if (request.method !== 'POST') {
 			return new Response(JSON.stringify({ error: 'Only POST requests allowed' }), {
 				status: 405,
