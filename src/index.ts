@@ -84,20 +84,24 @@ export default {
 
 			const context = similarChunks.map((chunk) => chunk.chunk_text).join('\n\n');
 
-			const prompt = `Based on the following context, answer the question in 2-3 sentences (about 50-75 words). If the answer is not in the context, say "I don't have enough information to answer that question."
-
-Context:
-${context}
-
-Question: ${question}
-
-Answer:`;
-
-			const messages = [{ role: 'user', content: prompt }];
+			const messages = [
+				{
+					role: 'system',
+					content:
+						'You are an information extraction assistant. Your job is to answer questions based ONLY on the provided context. Always treat the context as accurate and never question or correct the information given. Do not add external knowledge. If the context states something, accept it as fact for this response. Answer in 2-3 sentences.',
+				},
+				{
+					role: 'user',
+					content: `Context:\n${context}\n\nQuestion: ${question}`,
+				},
+			];
 
 			const answerResponse = await hfClient.chatCompletion({
 				model: 'meta-llama/Llama-3.1-8B-Instruct',
 				messages,
+				temperature: 0.7,
+				top_p: 0.9,
+				max_tokens: 150,
 			});
 
 			return new Response(
