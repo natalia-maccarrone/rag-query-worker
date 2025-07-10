@@ -77,9 +77,19 @@ export default {
 			}
 
 			if (!similarChunks || similarChunks.length === 0) {
-				return new Response(JSON.stringify({ answer: 'No relevant information found in the document.' }), {
-					headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-				});
+				return new Response(
+					JSON.stringify({
+						answer: {
+							role: 'assistant',
+							content: 'No relevant information found in the document.',
+						},
+						chunks_used: 0,
+						similarity_scores: [],
+					}),
+					{
+						headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+					}
+				);
 			}
 
 			const context = similarChunks.map((chunk) => chunk.chunk_text).join('\n\n');
