@@ -77,7 +77,7 @@ export default {
 				error: any;
 			} = await supabase.rpc('match_chunks', {
 				query_embedding: questionEmbedding,
-				match_threshold: 0.7,
+				match_threshold: 0.6,
 				match_count: 3,
 				doc_id: document_id,
 			});
@@ -116,7 +116,7 @@ export default {
 				},
 			];
 
-			const answerResponse = await hfClient.chatCompletion({
+			const aiResponse = await hfClient.chatCompletion({
 				model: 'meta-llama/Llama-3.1-8B-Instruct',
 				messages,
 				temperature: 0.7,
@@ -126,7 +126,7 @@ export default {
 
 			return new Response(
 				JSON.stringify({
-					answer: answerResponse.choices[0].message,
+					answer: aiResponse.choices[0].message,
 					chunks_used: similarChunks.length,
 					similarity_scores: similarChunks.map((c) => c.similarity),
 				}),
