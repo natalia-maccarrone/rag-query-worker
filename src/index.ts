@@ -77,7 +77,7 @@ export default {
 				error: any;
 			} = await supabase.rpc('match_chunks', {
 				query_embedding: questionEmbedding,
-				match_threshold: 0.6,
+				match_threshold: 0.3,
 				match_count: 3,
 				doc_id: document_id,
 			});
